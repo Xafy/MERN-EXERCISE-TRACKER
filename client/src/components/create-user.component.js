@@ -28,7 +28,7 @@ export default class Createuser extends Component{
 
         console.log(user)
         
-        axios.post('http://localhost:5000/users/add', user)
+        axios.post('https://exercises-zxfj.onrender.com/users/add', user || 'http://localhost:5000/users/add', user)
         .then(res => console.log(res.data))
         .catch((error) => {
             console.log(error);

@@ -25,7 +25,8 @@ export default class EditExercise extends Component {
 
   componentDidMount() {
     const {id} = useParams;
-    axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
+    console.log(this.props.match.params)
+    axios.get('https://exercises-zxfj.onrender.com/exercises/' ||'http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
           username: response.data.username,
@@ -38,7 +39,7 @@ export default class EditExercise extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:5000/users/')
+    axios.get('https://exercises-zxfj.onrender.com/users/'||'http://localhost:5000/users/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
