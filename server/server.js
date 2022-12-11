@@ -13,7 +13,7 @@ app.use(express.json());
 mongoose.set('strictQuery', false);
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser:true});
+mongoose.connect('mongodb+srv://exercise-tracker-render:somthingsecret@cluster0.qu4biuq.mongodb.net/exercise-tracker-render?retryWrites=true&w=majority', {useNewUrlParser:true});
 
 const connection = mongoose.connection;
 connection.once('open', ()=>{
