@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import {parseISO} from 'date-fns';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class EditExercise extends Component {
+function withRouter(Component) {
+  function ComponentWithRouter(props) {
+    let params = useParams()
+    return <Component {...props} params={params} />
+  }
+  return ComponentWithRouter
+}
+
+class EditExerciseClass extends Component {
   constructor(props) {
     super(props);
 
@@ -18,16 +27,16 @@ export default class EditExercise extends Component {
       username: '',
       description: '',
       duration: 0,
-      date: new Date(),
+      date: parseISO('2022-12-11T20:37:24.607Z'),
       users: []
     }
   }
 
   componentDidMount() {
-    const {id} = useParams;
-    console.log(this.props.match.params)
-    axios.get('https://exercises-zxfj.onrender.com/exercises/' ||'http://localhost:5000/exercises/'+this.props.match.params.id)
+    console.log(this.props.params.id)
+    axios.get('http://localhost:5000/exercises/'+this.props.params.id)
       .then(response => {
+        console.log(response)
         this.setState({
           username: response.data.username,
           description: response.data.description,
@@ -89,11 +98,8 @@ export default class EditExercise extends Component {
 
     console.log(exercise);
 
-    axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise)
-      .then(res => console.log(res.data))
-      .catch((error) => {
-        console.log(error);
-      });
+    axios.post('http://localhost:5000/exercises/update/' + this.props.params.id, exercise)
+      .then(res => console.log(res.data));
 
     window.location = '/';
   }
@@ -156,3 +162,7 @@ export default class EditExercise extends Component {
     )
   }
 }
+
+const EditExercise = withRouter(EditExerciseClass);
+
+export default EditExercise;

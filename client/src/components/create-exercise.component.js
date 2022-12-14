@@ -73,13 +73,13 @@ export default class CreateExercise extends Component {
 
     console.log(exercise)
 
-    axios.post('https://exercises-zxfj.onrender.com/exercises/', exercise||'http://localhost:5000/exercises/add', exercise)
+    axios.post('http://localhost:5000/exercises/add', exercise)
     .then(res => console.log(res.data))
     .catch((error) => {
       console.log(error);
     })
 
-    window.location ='https://exercises-zxfj.onrender.com/' || '/';
+    window.location = ('/' || 'https://exercises-zxfj.onrender.com/') ;
   }
 
   render() {
